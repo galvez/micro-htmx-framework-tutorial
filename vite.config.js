@@ -1,23 +1,29 @@
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
+import inject from '@rollup/plugin-inject'
 
 export default defineConfig({
   root: join(dirname(fileURLToPath(import.meta.url)), 'client'),
-  build: {
-  	assetsInlineLimit: 1,
+  esbuild: {
+    jsxFactory: 'Html.createElement',
+    jsxFragment: 'Html.Fragment',
   },
   plugins: [
-  	ensureClientOnlyScripts()
-  ]
+    inject({
+       htmx: 'htmx.org',
+       Html: '@kitajs/html'
+    }),
+    ensureClientOnlyScripts()
+  ],
 })
 
-function ensureClientOnlyScripts () {
+function ensureClientOnlyScripts() {
   let config
   return {
     name: 'vite-plugin-fastify-vite-htmx',
     configResolved (resolvedConfig) {
-      // store the resolved config
+      // Store the resolved config
       config = resolvedConfig
     },
     load (id, options) {

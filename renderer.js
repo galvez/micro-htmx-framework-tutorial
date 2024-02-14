@@ -19,12 +19,11 @@ async function prepareClient (clientModule, scope, config) {
   const { routes } = clientModule
   for (const route of routes) {
   	route.clientImports = await findClientImports(route.modulePath)
-	console.log('route.clientImports', route.clientImports)
   }
   return Object.assign({}, clientModule, { routes })
 }
 
-export function createRoute ({ handler, errorHandler, route }, fastify, config) {
+function createRoute ({ handler, errorHandler, route }, fastify, config) {
   if (!route.path) {
   	return
   }
