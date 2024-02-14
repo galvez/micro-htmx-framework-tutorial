@@ -8,6 +8,9 @@
   </head>
   <body>
     <div id="app"><!-- element --></div>
+    <script>
+    window[Symbol.for('clientImports')] = JSON.parse('<!-- clientImports -->')
+    </script>
     <script type="module" src="/main.js"></script>
   </body>
 </html>

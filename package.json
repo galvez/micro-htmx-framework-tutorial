@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build --outDir dist/client --ssrManifest",
+    "build:server": "vite build --outDir dist/server --ssr /index.js",
     "preview": "vite preview"
   },
   "devDependencies": {
@@ -15,6 +17,7 @@
     "@fastify/formbody": "^7.4.0",
     "@fastify/one-line-logger": "^1.2.0",
     "@fastify/vite": "^5.0.6",
-    "fastify": "^4.26.1"
+    "fastify": "^4.26.1",
+    "mlly": "^1.5.0"
   }
 }

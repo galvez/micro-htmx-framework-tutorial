@@ -1,3 +1,4 @@
+import './index.client.js'
 import javascriptLogo from '/javascript.svg'
 import viteLogo from '/vite.svg'
 

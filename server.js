@@ -1,6 +1,7 @@
 import Fastify from 'fastify'
 import FastifyVite from '@fastify/vite'
 import FastifyFormBody from '@fastify/formbody'
+import renderer from './renderer.js'
 
 const server = Fastify({
   logger: {
@@ -13,22 +14,7 @@ const server = Fastify({
 await server.register(FastifyFormBody)
 await server.register(FastifyVite,  {
   root: import.meta.url,
-  createRenderFunction() {},
-  createRoute ({ handler, errorHandler, route }, fastify, config) {
-    fastify.route({
-      url: route.path,
-      method: route.method ?? 'GET',
-      async handler (req, reply) {
-      	console.log('>', await route.default({ fastify, req, reply }))
-        reply.type('text/html')
-        reply.html({
-          element: await route.default({ fastify, req, reply }),
-        })
-      },
-      errorHandler,
-      ...route
-    })
-  }
+  renderer,
 })
 
 await server.vite.ready()
