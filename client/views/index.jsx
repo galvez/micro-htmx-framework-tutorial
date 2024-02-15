@@ -1,4 +1,4 @@
-import './index.client.js'
+import '/style.css'
 import javascriptLogo from '/javascript.svg'
 import viteLogo from '/vite.svg'
 
@@ -14,7 +14,12 @@ export default () => <>
     </a>
     <h1>Hello Vite!</h1>
     <div class="card">
-      <button id="counter" type="button"></button>
+      <button 
+        id="counter" 
+        type="button"
+        hx-include-inner
+        hx-swap="innerHTML"
+        hx-post="/counter">count is 1</button>
     </div>
     <p class="read-the-docs">
       Click on the Vite logo to learn more

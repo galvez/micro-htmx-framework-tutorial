@@ -32,10 +32,14 @@ function createRoute ({ handler, errorHandler, route }, fastify, config) {
     method: route.method ?? 'GET',
     async handler (req, reply) {
       reply.type('text/html')
-      reply.html({
-        element: await route.default(req, reply),
-        clientImports: JSON.stringify(route.clientImports),
-      })
+      if (route.fragment) {
+        reply.send(await route.default(req, reply))
+      } else {
+        reply.html({
+          element: await route.default(req, reply),
+          clientImports: JSON.stringify(route.clientImports),
+        })
+      }
     },
     errorHandler,
     ...route
